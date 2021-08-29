@@ -1,3 +1,5 @@
+const { contact } = require("../../../models");
+
 const {
   contactsShema: { JoiPostContacts },
 } = require("../../../validate");
@@ -16,9 +18,11 @@ const add = async (req, res, next) => {
         },
       });
     }
-    const { name, phone, email } = req.body;
+    // const { name, phone, email } = req.body;
 
-    const addContact = await data.addContact(name, email, phone);
+    // const addContact = await data.addContact(name, email, phone);
+
+    const addContact = await contact.create(req.body);
 
     res.status(201).json({
       status: "success",

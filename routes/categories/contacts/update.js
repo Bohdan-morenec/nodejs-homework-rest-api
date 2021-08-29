@@ -1,4 +1,7 @@
-const data = require("../../../model/contactsData");
+const { contact } = require("../../../models");
+
+// const data = require("../../../model/contactsData");
+
 const {
   contactsShema: { JoiPutContacts },
 } = require("../../../validate");
@@ -19,7 +22,11 @@ const updateContact = async (req, res, next) => {
     const { name, email, phone } = dataUpdated;
 
     if (name || email || phone) {
-      const updateContact = await data.updateContact(contactId, dataUpdated);
+      // const updateContact = await data.updateContact(contactId, dataUpdated);
+      const updateContact = await contact.findOneAndUpdate(
+        contactId,
+        dataUpdated
+      );
 
       if (!updateContact) {
         return res.status(404).json({
@@ -29,9 +36,9 @@ const updateContact = async (req, res, next) => {
         });
       }
 
-      res.status(201).json({
+      res.status(200).json({
         status: "success",
-        code: "201",
+        code: "200",
         result: {
           data: updateContact,
         },
