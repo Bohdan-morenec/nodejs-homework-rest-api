@@ -19,31 +19,27 @@ const updateContact = async (req, res, next) => {
     const { contactId } = req.params;
     const dataUpdated = req.body;
 
-    const { name, email, phone } = dataUpdated;
+    // const updateContact = await data.updateContact(contactId, dataUpdated);
+    const updateContact = await contact.findOneAndUpdate(
+      contactId,
+      dataUpdated
+    );
 
-    if (name || email || phone) {
-      // const updateContact = await data.updateContact(contactId, dataUpdated);
-      const updateContact = await contact.findOneAndUpdate(
-        contactId,
-        dataUpdated
-      );
-
-      if (!updateContact) {
-        return res.status(404).json({
-          result: {
-            message: "Not found",
-          },
-        });
-      }
-
-      res.status(200).json({
-        status: "success",
-        code: "200",
+    if (!updateContact) {
+      return res.status(404).json({
         result: {
-          data: updateContact,
+          message: "Not found",
         },
       });
     }
+
+    res.status(200).json({
+      status: "success",
+      code: "200",
+      result: {
+        data: updateContact,
+      },
+    });
   } catch (error) {
     next(error);
   }

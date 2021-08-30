@@ -7,7 +7,6 @@ const {
 const data = require("../../../model/contactsData");
 
 const add = async (req, res, next) => {
-  console.log(JoiPostContacts);
   try {
     const { error } = JoiPostContacts.validate(req.body);
 
