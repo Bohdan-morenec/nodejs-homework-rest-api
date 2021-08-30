@@ -1,7 +1,19 @@
 const { contact } = require("../../../models");
 
+const {
+  contactsShema: { JoiPatchContacts },
+} = require("../../../validate");
+
 const patch = async (req, res, next) => {
   try {
+    const { error } = JoiPatchContacts.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({
+        message: "missing field favorite",
+      });
+    }
+
     const { contactId } = req.params;
 
     const updatesElement = await contact.findOneAndUpdate(contactId, req.body);
