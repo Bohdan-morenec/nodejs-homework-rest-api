@@ -1,12 +1,8 @@
 const { contact } = require("../../../models");
 
-// const data = require("../../../model/contactsData");
-
 const deleteContact = async (req, res, next) => {
   try {
     const { contactId } = req.params;
-
-    // const deleteContact = await data.removeContact(contactId);
 
     const deleteContact = await contact.findByIdAndRemove(contactId);
 

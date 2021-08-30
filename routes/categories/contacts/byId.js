@@ -1,12 +1,8 @@
-// const data = require("../../../model/contactsData");
-
 const { contact } = require("../../../models");
 
 const byId = async (req, res, next) => {
   try {
     const { contactId } = req.params;
-
-    // const contact = await data.getContactById(contactId);
 
     const dataContact = await contact.findById(contactId);
 
