@@ -1,3 +1,4 @@
 const contactsShema = require("./contactsShema");
+const medivarValidation = require("./medivarValidation");
 
-module.exports = { contactsShema };
+module.exports = { contactsShema, medivarValidation };
