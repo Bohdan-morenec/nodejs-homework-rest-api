@@ -4,11 +4,12 @@ const router = express.Router();
 
 const { contacts: ctrl } = require("../categories");
 
-const { validation } = require("../../middleware");
-const { controllerWrapper } = require("../../middleware");
 const {
   contactsShema: { JoiPostContacts, JoiPatchContacts },
-} = require("../../validate");
+} = require("../../models/joiValidate");
+
+const { validation } = require("../../middleware");
+const { controllerWrapper } = require("../../middleware");
 
 router.get("/", controllerWrapper(ctrl.getAll));
 
@@ -21,6 +22,7 @@ router.delete("/:contactId", controllerWrapper(ctrl.deleteContact));
 router.put(
   "/:contactId",
   validation(JoiPostContacts),
+  //validation(JoiPostContacts)бесполезная функция
   controllerWrapper(ctrl.updateContact)
 );
 
