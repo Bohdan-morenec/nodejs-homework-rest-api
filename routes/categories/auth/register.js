@@ -1,18 +1,26 @@
 const { Conflict } = require("http-errors");
 
-const { user } = require("../../../models");
+const { User } = require("../../../models");
 
 const register = async (req, res) => {
   const { email, password } = req.body;
-  const checkUniqueness = user.findOne({ email });
 
-  if (!checkUniqueness) {
+  const checkUniqueness = User.findOne({ email });
+
+  if (checkUniqueness) {
     throw new Conflict("Already register");
   }
-  const addUser = await user.create(req.body);
+
+  const newUser = new User({ email });
+  newUser.sethashPassword(password);
+  await newUser.save();
 
   res.json({
-    meesage: addUser,
+    status: "success",
+    code: 200,
+    result: {
+      data: newUser,
+    },
   });
 };
 

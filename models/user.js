@@ -1,3 +1,5 @@
+const bcrypt = require("bcryptjs");
+
 const { Schema, model } = require("mongoose");
 
 const userSchema = Schema(
@@ -26,6 +28,14 @@ const userSchema = Schema(
     timestamps: true,
   }
 );
+
+userSchema.methods.sethashPassword = function (password) {
+  this.password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+};
+
+userSchema.methods.verificationPassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
 
 const User = model("user", userSchema);
 
