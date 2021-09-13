@@ -26,7 +26,6 @@ router.post(
 
 router.get(
   "/logout",
-
   controllerWrapper(tokenVerification),
   // validation(joiPostRegister),
   controllerWrapper(ctrl.logout)
