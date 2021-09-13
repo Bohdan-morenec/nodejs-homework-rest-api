@@ -4,6 +4,7 @@ const router = express.Router();
 
 const { controllerWrapper } = require("../../middleware");
 const { validation } = require("../../middleware");
+const { tokenVerification } = require("../../middleware");
 
 const { auth: ctrl } = require("../../routes/categories");
 
@@ -23,6 +24,12 @@ router.post(
   controllerWrapper(ctrl.login)
 );
 
-// router.get('/logout', ctrl.logout)
+router.get(
+  "/logout",
+
+  controllerWrapper(tokenVerification),
+  // validation(joiPostRegister),
+  controllerWrapper(ctrl.logout)
+);
 
 module.exports = router;
