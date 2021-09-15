@@ -2,20 +2,23 @@ const { NotFound } = require("http-errors");
 
 const { contact } = require("../../../models");
 
-const byId = async (req, res) => {
+const del = async (req, res, _) => {
   const { contactId } = req.params;
 
-  const dataContact = await contact.findById(contactId);
+  const del = await contact.findByIdAndRemove(contactId);
 
-  if (!dataContact) {
+  if (!del) {
     throw new NotFound();
   }
 
   res.status(200).json({
+    message: "contact deleted",
     status: "success",
     code: 200,
-    result: { data: dataContact },
+    result: {
+      data: del,
+    },
   });
 };
 
-module.exports = byId;
+module.exports = del;

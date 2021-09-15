@@ -2,7 +2,7 @@ const { NotFound } = require("http-errors");
 
 const { contact } = require("../../../models");
 
-const updateContact = async (req, res) => {
+const update = async (req, res) => {
   const { contactId } = req.params;
 
   const updateContact = await contact.findOneAndUpdate(contactId, req.body, {
@@ -22,4 +22,4 @@ const updateContact = async (req, res) => {
   });
 };
 
-module.exports = updateContact;
+module.exports = update;

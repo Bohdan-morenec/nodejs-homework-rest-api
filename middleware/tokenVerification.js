@@ -11,10 +11,6 @@ const tokenVerification = async (req, _, next) => {
       throw new Unauthorized();
     }
 
-    // const { SECRET_KEY } = process.env;
-
-    // const { id } = jwt.verify(token, SECRET_KEY);
-
     const user = await User.findOne({ token });
     if (!user) {
       throw new Unauthorized();

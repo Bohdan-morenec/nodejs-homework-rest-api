@@ -1,3 +1,3 @@
-const joiPostRegister = require("./joiPostRegister");
+const signupSchema = require("./signupSchema");
 
-module.exports = { joiPostRegister };
+module.exports = { signupSchema };

@@ -5,7 +5,7 @@ const { User } = require("../../../models");
 const register = async (req, res) => {
   const { email, password } = req.body;
 
-  const checkUniqueness = User.findOne({ email });
+  const checkUniqueness = await User.findOne({ email });
 
   if (checkUniqueness) {
     throw new Conflict("Already register");

@@ -21,19 +21,19 @@ router.get(
 router.get(
   "/:contactId",
   controllerWrapper(tokenVerification),
-  controllerWrapper(ctrl.byId)
+  controllerWrapper(ctrl.findById)
 );
 
 router.post(
   "/",
   controllerWrapper(tokenVerification),
-  controllerWrapper(ctrl.addContact)
+  controllerWrapper(ctrl.add)
 );
 
 router.delete(
   "/:contactId",
   controllerWrapper(tokenVerification),
-  controllerWrapper(ctrl.deleteContact)
+  controllerWrapper(ctrl.del)
 );
 
 router.put(
@@ -41,7 +41,7 @@ router.put(
   validation(JoiPostContacts),
   controllerWrapper(tokenVerification),
   //validation(JoiPostContacts)бесполезная функция
-  controllerWrapper(ctrl.updateContact)
+  controllerWrapper(ctrl.update)
 );
 
 router.patch(

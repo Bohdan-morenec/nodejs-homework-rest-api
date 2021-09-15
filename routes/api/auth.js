@@ -9,25 +9,21 @@ const { tokenVerification } = require("../../middleware");
 const { auth: ctrl } = require("../../routes/categories");
 
 const {
-  userShema: { joiPostRegister },
+  userShema: { signupSchema },
 } = require("../../models/joiValidate");
 
 router.post(
   "/register",
-  validation(joiPostRegister),
+  validation(signupSchema),
   controllerWrapper(ctrl.register)
 );
 
-router.post(
-  "/login",
-  validation(joiPostRegister),
-  controllerWrapper(ctrl.login)
-);
+router.post("/login", validation(signupSchema), controllerWrapper(ctrl.login));
 
 router.get(
   "/logout",
   controllerWrapper(tokenVerification),
-  // validation(joiPostRegister),
+  // validation(signupSchema),
   controllerWrapper(ctrl.logout)
 );
 
