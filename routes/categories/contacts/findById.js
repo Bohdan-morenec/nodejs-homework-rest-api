@@ -2,24 +2,20 @@ const { NotFound } = require("http-errors");
 
 const { contact } = require("../../../models");
 
-const patch = async (req, res) => {
+const findById = async (req, res) => {
   const { contactId } = req.params;
 
-  const updatesElement = await contact.findOneAndUpdate(contactId, req.body, {
-    new: true,
-  });
+  const dataContact = await contact.findById(contactId);
 
-  if (!updatesElement) {
+  if (!dataContact) {
     throw new NotFound();
   }
 
   res.status(200).json({
     status: "success",
     code: 200,
-    result: {
-      data: updatesElement,
-    },
+    result: { data: dataContact },
   });
 };
 
-module.exports = patch;
+module.exports = findById;

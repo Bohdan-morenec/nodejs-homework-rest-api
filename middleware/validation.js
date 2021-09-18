@@ -1,18 +1,15 @@
+const { BadRequest } = require("http-errors");
+
 const medivarValidation = (schema) => {
-  console.log(1);
-  validation = (req, res, next) => {
+  validation = (req, _, next) => {
     const { error } = schema.validate(req.body);
 
     if (error) {
-      return res.status(400).json({
-        result: {
-          message: error.message,
-        },
-      });
+      throw new BadRequest();
     }
     next();
   };
-  console.log(2);
+
   return validation;
 };
 

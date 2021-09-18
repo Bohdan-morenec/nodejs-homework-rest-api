@@ -1,30 +1,54 @@
 const express = require("express");
+
 const router = express.Router();
+
 const { contacts: ctrl } = require("../categories");
 
-const { medivarValidation } = require("../../validate");
 const {
-  contactsShema: { JoiPostContacts },
-} = require("../../validate");
+  contactsShema: { JoiPostContacts, JoiPatchContacts },
+} = require("../../models/joiValidate");
 
-router.get("/", ctrl.getAll);
+const { validation } = require("../../middleware");
+const { controllerWrapper } = require("../../middleware");
+const { tokenVerification } = require("../../middleware");
 
-router.get("/:contactId", ctrl.byId);
+router.get(
+  "/",
+  controllerWrapper(tokenVerification),
+  controllerWrapper(ctrl.getAll)
+);
 
-router.post("/", ctrl.addContact);
+router.get(
+  "/:contactId",
+  controllerWrapper(tokenVerification),
+  controllerWrapper(ctrl.findById)
+);
 
-router.delete("/:contactId", ctrl.deleteContact);
+router.post(
+  "/",
+  controllerWrapper(tokenVerification),
+  controllerWrapper(ctrl.add)
+);
+
+router.delete(
+  "/:contactId",
+  controllerWrapper(tokenVerification),
+  controllerWrapper(ctrl.del)
+);
 
 router.put(
   "/:contactId",
-  medivarValidation(JoiPostContacts),
-  ctrl.updateContact
+  validation(JoiPostContacts),
+  controllerWrapper(tokenVerification),
+  //validation(JoiPostContacts)бесполезная функция
+  controllerWrapper(ctrl.update)
 );
 
 router.patch(
   "/:contactId/favorite",
-  medivarValidation(JoiPostContacts),
-  ctrl.patch
+  controllerWrapper(tokenVerification),
+  validation(JoiPatchContacts),
+  controllerWrapper(ctrl.patch)
 );
 
 module.exports = router;
