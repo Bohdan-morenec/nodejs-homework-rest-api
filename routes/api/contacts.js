@@ -8,9 +8,11 @@ const {
   contactsShema: { JoiPostContacts, JoiPatchContacts },
 } = require("../../models/joiValidate");
 
-const { validation } = require("../../middleware");
-const { controllerWrapper } = require("../../middleware");
-const { tokenVerification } = require("../../middleware");
+const {
+  validation,
+  controllerWrapper,
+  tokenVerification,
+} = require("../../middleware");
 
 router.get(
   "/",

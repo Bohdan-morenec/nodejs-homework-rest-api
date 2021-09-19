@@ -1,3 +1,6 @@
+const fs = require("fs/promises");
+const path = require("path");
+
 const { Conflict } = require("http-errors");
 
 const { User } = require("../../../models");
@@ -12,6 +15,9 @@ const register = async (req, res) => {
   }
 
   const newUser = new User({ email });
+
+  createAwatarFile(newUser._id);
+
   newUser.sethashPassword(password);
   await newUser.save();
 
@@ -22,6 +28,13 @@ const register = async (req, res) => {
       data: newUser,
     },
   });
+};
+
+const userDir = path.join(__dirname, "../../../public/avatars");
+
+const createAwatarFile = async (id) => {
+  const ditPath = path.join(userDir, id.toString());
+  await fs.mkdir(ditPath);
 };
 
 module.exports = register;

@@ -2,9 +2,11 @@ const express = require("express");
 
 const router = express.Router();
 
-const { controllerWrapper } = require("../../middleware");
-const { validation } = require("../../middleware");
-const { tokenVerification } = require("../../middleware");
+const {
+  controllerWrapper,
+  validation,
+  tokenVerification,
+} = require("../../middleware");
 
 const { auth: ctrl } = require("../../routes/categories");
 
