@@ -1,3 +1,4 @@
+const gravatar = require("gravatar");
 const fs = require("fs/promises");
 const path = require("path");
 
@@ -8,13 +9,17 @@ const { User } = require("../../../models");
 const register = async (req, res) => {
   const { email, password } = req.body;
 
-  const checkUniqueness = await User.findOne({ email });
+  const defaultPhoto = gravatar.url(email, { s: "200" });
+
+  const checkUniqueness = await User.findOne({
+    email,
+  });
 
   if (checkUniqueness) {
     throw new Conflict("Already register");
   }
 
-  const newUser = new User({ email });
+  const newUser = new User({ email, avatarURL: `https${defaultPhoto}` });
 
   createAwatarFile(newUser._id);
 

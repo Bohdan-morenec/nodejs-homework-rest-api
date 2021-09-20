@@ -1,16 +1,16 @@
-const { BadRequest } = require("http-errors");
+const { BadRequest } = require('http-errors')
 
 const medivarValidation = (schema) => {
-  validation = (req, _, next) => {
-    const { error } = schema.validate(req.body);
+  const validation = (req, _, next) => {
+    const { error } = schema.validate(req.body)
 
     if (error) {
-      throw new BadRequest();
+      throw new BadRequest()
     }
-    next();
-  };
+    next()
+  }
 
-  return validation;
-};
+  return validation
+}
 
-module.exports = medivarValidation;
+module.exports = medivarValidation

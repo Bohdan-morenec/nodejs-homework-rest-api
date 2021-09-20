@@ -1,56 +1,56 @@
-const express = require("express");
+const express = require('express')
 
-const router = express.Router();
+const router = express.Router()
 
-const { contacts: ctrl } = require("../categories");
+const { contacts: ctrl } = require('../categories')
 
 const {
   contactsShema: { JoiPostContacts, JoiPatchContacts },
-} = require("../../models/joiValidate");
+} = require('../../models/joiValidate')
 
 const {
   validation,
   controllerWrapper,
   tokenVerification,
-} = require("../../middleware");
+} = require('../../middleware')
 
 router.get(
-  "/",
+  '/',
   controllerWrapper(tokenVerification),
   controllerWrapper(ctrl.getAll)
-);
+)
 
 router.get(
-  "/:contactId",
+  '/:contactId',
   controllerWrapper(tokenVerification),
   controllerWrapper(ctrl.findById)
-);
+)
 
 router.post(
-  "/",
+  '/',
   controllerWrapper(tokenVerification),
   controllerWrapper(ctrl.add)
-);
+)
 
 router.delete(
-  "/:contactId",
+  '/:contactId',
   controllerWrapper(tokenVerification),
   controllerWrapper(ctrl.del)
-);
+)
 
 router.put(
-  "/:contactId",
+  '/:contactId',
   validation(JoiPostContacts),
   controllerWrapper(tokenVerification),
-  //validation(JoiPostContacts)бесполезная функция
+  // validation(JoiPostContacts)бесполезная функция
   controllerWrapper(ctrl.update)
-);
+)
 
 router.patch(
-  "/:contactId/favorite",
+  '/:contactId/favorite',
   controllerWrapper(tokenVerification),
   validation(JoiPatchContacts),
   controllerWrapper(ctrl.patch)
-);
+)
 
-module.exports = router;
+module.exports = router

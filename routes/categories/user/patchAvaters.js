@@ -1,5 +1,5 @@
+const Jimp = require("jimp");
 const fs = require("fs/promises");
-const fs1 = require("fs");
 const path = require("path");
 
 const { User } = require("../../../models");
@@ -16,11 +16,15 @@ const patchAvaters = async (req, res) => {
   try {
     const files = await fs.readdir(avatarFile);
 
+    const file = await Jimp.read(tempFile);
+    await file.resize(250, 250).write(tempFile);
+
     await fs.rename(tempFile, uploadPath);
 
     await fs.unlink(path.join(avatarFile, `${files[0]}`));
 
     const avatarURL = `/public/avatars/${_id.toString()}/${filename}`;
+
     await User.findByIdAndUpdate(_id, { avatarURL });
 
     res.status(200).json({

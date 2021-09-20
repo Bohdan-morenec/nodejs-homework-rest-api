@@ -1,4 +1,4 @@
-const getToken = require("./getToken");
-const patchAvaters = require("./patchAvaters");
+const getToken = require('./getToken')
+const patchAvaters = require('./patchAvaters')
 
-module.exports = { getToken, patchAvaters };
+module.exports = { getToken, patchAvaters }
