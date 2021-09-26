@@ -40,7 +40,7 @@ const register = async (req, res) => {
     to: email,
     subject: "verify",
     html: `<p>please confirm account verification<p>
-    <a href=http://localhost:3000/api/users/verify/${newUser.verificationToken}>click here</a>`,
+    <a href=http://localhost:3000/api/auth/verify/${newUser.verificationToken}>click here</a>`,
   });
 
   await newUser.save();

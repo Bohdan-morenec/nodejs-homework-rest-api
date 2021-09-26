@@ -25,7 +25,7 @@ const reDispatchVerifyToken = async (req, res) => {
     to: email,
     subject: "verify",
     html: `<p>please confirm account verification<p>
-    <a href=http://localhost:3000/api/users/verify/${user.verificationToken}>click here</a>`,
+    <a href=http://localhost:3000/api/auth/verify/${user.verificationToken}>click here</a>`,
   });
 
   res.status(200).json({
