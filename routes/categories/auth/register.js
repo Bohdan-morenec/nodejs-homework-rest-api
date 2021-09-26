@@ -21,6 +21,13 @@ const register = async (req, res) => {
 
   const newUser = new User({ email, avatarURL: `https${defaultPhoto}` });
 
+  const userDir = path.join(__dirname, "../../../public/avatars");
+
+  const createAwatarFile = async (id) => {
+    const ditPath = path.join(userDir, id.toString());
+    await fs.mkdir(ditPath);
+  };
+
   createAwatarFile(newUser._id);
 
   newUser.sethashPassword(password);
@@ -33,13 +40,6 @@ const register = async (req, res) => {
       data: newUser,
     },
   });
-};
-
-const userDir = path.join(__dirname, "../../../public/avatars");
-
-const createAwatarFile = async (id) => {
-  const ditPath = path.join(userDir, id.toString());
-  await fs.mkdir(ditPath);
 };
 
 module.exports = register;
