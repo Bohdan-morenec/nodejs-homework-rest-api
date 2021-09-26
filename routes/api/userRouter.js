@@ -1,16 +1,26 @@
-const express = require("express");
+const express = require('express')
 
-const router = express.Router();
+const router = express.Router()
 
-const { user: ctrl } = require("../categories");
+const { user: ctrl } = require('../categories')
 
-const { controllerWrapper } = require("../../middleware");
-const { tokenVerification } = require("../../middleware");
+const {
+  controllerWrapper,
+  tokenVerification,
+  upload,
+} = require('../../middleware')
 
 router.get(
-  "/current",
+  '/current',
   controllerWrapper(tokenVerification),
   controllerWrapper(ctrl.getToken)
-);
+)
 
-module.exports = router;
+router.patch(
+  '/avatars',
+  controllerWrapper(tokenVerification),
+  upload.single('image'),
+  controllerWrapper(ctrl.patchAvaters)
+)
+
+module.exports = router

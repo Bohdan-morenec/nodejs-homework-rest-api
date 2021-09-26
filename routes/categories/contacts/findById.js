@@ -1,21 +1,21 @@
-const { NotFound } = require("http-errors");
+const { NotFound } = require('http-errors')
 
-const { contact } = require("../../../models");
+const { contact } = require('../../../models')
 
 const findById = async (req, res) => {
-  const { contactId } = req.params;
+  const { contactId } = req.params
 
-  const dataContact = await contact.findById(contactId);
+  const dataContact = await contact.findById(contactId)
 
   if (!dataContact) {
-    throw new NotFound();
+    throw new NotFound()
   }
 
   res.status(200).json({
-    status: "success",
+    status: 'success',
     code: 200,
     result: { data: dataContact },
-  });
-};
+  })
+}
 
-module.exports = findById;
+module.exports = findById

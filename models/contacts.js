@@ -1,18 +1,18 @@
-const { Schema, model, SchemaTypes } = require("mongoose");
+const { Schema, model, SchemaTypes } = require('mongoose')
 
 const contactShema = Schema(
   {
     name: {
       type: String,
-      required: [true, "Set name for contact"],
+      required: [true, 'Set name for contact'],
     },
     email: {
       type: String,
-      require: [true, "Set email for contact"],
+      require: [true, 'Set email for contact'],
     },
     phone: {
       type: String,
-      require: [true, "Set phone for contact"],
+      require: [true, 'Set phone for contact'],
     },
     favorite: {
       type: Boolean,
@@ -20,15 +20,15 @@ const contactShema = Schema(
     },
     owner: {
       type: SchemaTypes.ObjectId,
-      ref: "user",
+      ref: 'user',
     },
   },
   {
     versionKey: false,
     timestamps: true,
   }
-);
+)
 
-const contact = model("contact", contactShema);
+const contact = model('contact', contactShema)
 
-module.exports = contact;
+module.exports = contact
