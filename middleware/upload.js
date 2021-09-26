@@ -3,6 +3,11 @@ const path = require("path");
 
 const tempDir = path.join(__dirname, "../temp");
 
+const renameOriginalname = (name) => {
+  const [a, b] = name.split(".");
+  return `${new Date().getTime()}.${b}`;
+};
+
 const multerConfig = multer.diskStorage({
   destination: (_, __, cd) => {
     cd(null, tempDir);
@@ -14,11 +19,6 @@ const multerConfig = multer.diskStorage({
     fileSize: 1024,
   },
 });
-
-const renameOriginalname = (name) => {
-  const [a, b] = name.split(".");
-  return `${new Date().getTime()}.${b}`;
-};
 
 const upload = multer({
   storage: multerConfig,
