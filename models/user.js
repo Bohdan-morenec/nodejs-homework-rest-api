@@ -51,7 +51,7 @@ userSchema.methods.verificationPassword = function (password) {
 };
 
 userSchema.methods.setVeriFyToken = function () {
-  this.verifyToken = v4();
+  this.verificationToken = v4();
 };
 
 const User = model("user", userSchema);

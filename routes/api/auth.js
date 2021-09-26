@@ -1,32 +1,33 @@
-const express = require('express')
+const express = require("express");
 
-const router = express.Router()
+const router = express.Router();
 
 const {
   controllerWrapper,
   validation,
   tokenVerification,
-} = require('../../middleware')
+} = require("../../middleware");
 
-const { auth: ctrl } = require('../../routes/categories')
+const { auth: ctrl } = require("../../routes/categories");
 
 const {
   userShema: { signupSchema },
-} = require('../../models/joiValidate')
+} = require("../../models/joiValidate");
 
 router.post(
-  '/register',
+  "/register",
   validation(signupSchema),
   controllerWrapper(ctrl.register)
-)
+);
 
-router.post('/login', validation(signupSchema), controllerWrapper(ctrl.login))
+router.post("/login", validation(signupSchema), controllerWrapper(ctrl.login));
 
 router.get(
-  '/logout',
+  "/logout",
   controllerWrapper(tokenVerification),
-  // validation(signupSchema),
   controllerWrapper(ctrl.logout)
-)
+);
 
-module.exports = router
+router.post("/verify", controllerWrapper(ctrl.reDispatchVerifyToken));
+
+module.exports = router;
