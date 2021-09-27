@@ -23,4 +23,10 @@ router.patch(
   controllerWrapper(ctrl.patchAvaters)
 );
 
+router.patch(
+  "/",
+  controllerWrapper(tokenVerification),
+  controllerWrapper(ctrl.patch)
+);
+
 module.exports = router;
