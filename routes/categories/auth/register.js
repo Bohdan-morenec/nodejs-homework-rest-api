@@ -30,13 +30,6 @@ const register = async (req, res) => {
     await fs.mkdir(ditPath);
   };
 
-  const userDir = path.join(__dirname, "../../../public/avatars");
-
-  const createAwatarFile = async (id) => {
-    const ditPath = path.join(userDir, id.toString());
-    await fs.mkdir(ditPath);
-  };
-
   createAwatarFile(newUser._id);
 
   newUser.sethashPassword(password);
